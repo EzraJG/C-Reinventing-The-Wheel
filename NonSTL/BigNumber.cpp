@@ -37,8 +37,8 @@ class BigNumber{
             int i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
                 uint64_t temp = *uint64_tit++;
-                if(temp.size()/sizeof(uint64_t) == 4){
-                    if(EqualsVar == temp[0] + temp[1] + temp[2] + temp[3]){
+                if(buffer.size() == 4){
+                    if(EqualsVar == temp + buffer[1] + buffer[2] + buffer[3]){
                         return true;
                     }
                 }
@@ -61,61 +61,189 @@ class BigNumber{
         }
 
         bool operator!=(uint64_t NEqualsVar){
-            bool YN = true;
+            bool YN = false;
             int i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
-                        uint64_t temp = *uint64_tit++;
-                        if(NEqualsVar - temp == *uint64_tit){
-                            YN = false;
-                        }
+                uint64_t temp = *uint64_tit++;
+                if(buffer.size() == 4){
+                    if(NEqualsVar != temp + buffer[1] + buffer[2] + buffer[3]){
+                        //td::cout << "if 1" << std::endl;
+                        return true;
+                    }
+                }
+                if(uint64_tit != buffer.end()){
+                    if(NEqualsVar - temp != *uint64_tit){
+                        YN = false;
+                        //std::cout << "if 2" << std::endl;
+                    }
+                }else{
+                    std::vector<uint64_t> temp;
+                    for(int i = 0; i < buffer.size(); i++){
+                        temp.push_back(buffer[i]);
+                    }
+                    if(NEqualsVar != std::accumulate(temp.begin(), temp.end(), 0)){
+                        //std::cout << "if 3" << std::endl;
+                        return true;
+                    }
+
+                }
             }
             return YN;
         }
 
         bool operator<(uint64_t LTVar){
+            bool YN = false;
             int i = 0;
+
+
+            i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
-                    uint64_t temp = *uint64_tit++;
-                if(LTVar - temp > *uint64_tit){
-                    return true;
+                uint64_t temp = *uint64_tit++;
+                if(buffer.size() == 4){
+                    if(LTVar < temp + buffer[1] + buffer[2] + buffer[3]){
+                        std::cout << "if 1" << std::endl;
+                        return true;
+                    }
+                }
+                if(uint64_tit != buffer.end()){
+                    if(LTVar - temp < *uint64_tit){
+                        return true;
+                        std::cout << "if 2" << std::endl;
+                    }
+                }else{
+                    std::vector<uint64_t> temp;
+                    for(int i = 0; i != buffer.size(); i++){
+                        temp.push_back(buffer[i]);
+                    }
+                    if(LTVar < std::accumulate(temp.begin(), temp.end(), 0)){
+                        std::cout << "if 3" << std::endl;
+                        return false;
+                    }
+                    if(LTVar == std::accumulate(temp.begin(), temp.end(), 0)){
+                        std::cout << "if 4" << std::endl;
+                        return false;
+                    }
+
                 }
             }
-            return false;
+            return YN;
         }
 
         bool operator>(uint64_t GTVar){
+            bool YN = false;
             int i = 0;
+            std::cout << GTVar;
+
+            i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
                 uint64_t temp = *uint64_tit++;
-                if(GTVar - temp < *uint64_tit){
-                    return true;
+                if(buffer.size() == 4){
+                    if(GTVar > temp + buffer[1] + buffer[2] + buffer[3]){
+                        std::cout << "if 1" << std::endl;
+                        return true;
+                    }
+                }
+                if(uint64_tit != buffer.end()){
+                    if(GTVar - temp > *uint64_tit){
+                        std::cout << "if 2" << std::endl;
+                        return true;
+
+                    }
+                }else{
+                    std::vector<uint64_t> temp;
+                    for(int i = 0; i != buffer.size(); i++){
+                        temp.push_back(buffer[i]);
+                    }
+                    if(GTVar > std::accumulate(temp.begin(), temp.end(), 0)){
+                        std::cout << "if 3" << std::endl;
+                        return false;
+                    }
+                    if(GTVar == std::accumulate(temp.begin(), temp.end(), 0)){
+                        std::cout << "if 4" << std::endl;
+                        return false;
+                    }
+
                 }
             }
-            return false;
+            std::cout << "nothing" << std::endl;
+            return YN;
         }
 
         bool operator>=(uint64_t GTEVar){
+            bool YN = false;
             int i = 0;
+            std::cout << GTEVar;
+
+            i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
                 uint64_t temp = *uint64_tit++;
-                if(GTEVar - temp < *uint64_tit || GTEVar - temp == *uint64_tit){
-                    return true;
+                if(buffer.size() == 4){
+                    if(GTEVar <= temp + buffer[1] + buffer[2] + buffer[3]){
+                        std::cout << "if 1" << std::endl;
+                        return true;
+                    }
+                }
+                if(uint64_tit != buffer.end()){
+                    if(GTEVar - temp <= *uint64_tit){
+                        std::cout << "if 2" << std::endl;
+                        return true;
+
+                    }
+                }else{
+                    std::vector<uint64_t> temp;
+                    for(int i = 0; i != buffer.size(); i++){
+                        temp.push_back(buffer[i]);
+                    }
+                    if(GTEVar > std::accumulate(temp.begin(), temp.end(), 0)){
+                        std::cout << "if 3" << std::endl;
+                        return false;
+                    }
+
                 }
             }
-            return false;
+            std::cout << "nothing" << std::endl;
+            return YN;
         }
 
 
         bool operator<=(uint64_t LTEVar){
+            bool YN = false;
             int i = 0;
+            std::cout << LTEVar;
+
+            i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
                 uint64_t temp = *uint64_tit++;
-                if(LTEVar - temp > *uint64_tit || LTEVar - temp == *uint64_tit){
-                    return true;
+                if(buffer.size() == 4){
+                    if(LTEVar >= temp + buffer[1] + buffer[2] + buffer[3]){
+                        std::cout << "if 1" << std::endl;
+                        return true;
+                    }
+                }
+                if(uint64_tit != buffer.end()){
+                    if(LTEVar - temp <= *uint64_tit){
+                        std::cout << "if 2" << std::endl;
+                        return true;
+
+                    }
+                }else{
+                    std::vector<uint64_t> temp;
+                    for(int i = 0; i != buffer.size(); i++){
+                        temp.push_back(buffer[i]);
+                    }
+                    if(LTEVar < std::accumulate(temp.begin(), temp.end(), 0)){
+                        std::cout << "if 3" << std::endl;
+                        return false;
+                    }
+
                 }
             }
-            return false;
+            std::cout << "nothing" << std::endl;
+            return YN;
         }
+
+
+
 
         void operator=(std::vector<uint64_t> input){
             int i = 0;
@@ -124,12 +252,17 @@ class BigNumber{
             buffer.push_back(*uint64_tit);
             }
         }
+
+
+        void operator+(uint64_t a){
+            buffer.push_back(a);
+        }
 };
 
 int main(){
 
-std::vector<uint64_t> placeholder = { 10, 10, 10, 10}; // Tested multiple ways, seems to work(Only with 2*, will be fixed later)
+std::vector<uint64_t> placeholder = { 999999999999999999999999999999999999999999}; // Tested multiple ways, seems to work(Only with 2*, will be fixed later)
 BigNumber a(placeholder);
-if(a == 50) std::cout << "It works!" << std::endl;
+std::cout << std::endl << (a > 3);
 return 0;
 }
