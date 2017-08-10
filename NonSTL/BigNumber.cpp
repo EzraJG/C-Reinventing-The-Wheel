@@ -101,26 +101,26 @@ class BigNumber{
                 uint64_t temp = *uint64_tit++;
                 if(buffer.size() == 4){
                     if(LTVar < temp + buffer[1] + buffer[2] + buffer[3]){
-                        std::cout << "if 1" << std::endl;
+                        //std::cout << "if 1" << std::endl;
                         return true;
                     }
                 }
                 if(uint64_tit != buffer.end()){
                     if(LTVar - temp < *uint64_tit){
                         return true;
-                        std::cout << "if 2" << std::endl;
+                        //std::cout << "if 2" << std::endl;
                     }
                 }else{
                     std::vector<uint64_t> temp;
                     for(int i = 0; i != buffer.size(); i++){
-                        temp.push_back(buffer[i]);
+                        //temp.push_back(buffer[i]);
                     }
                     if(LTVar < std::accumulate(temp.begin(), temp.end(), 0)){
-                        std::cout << "if 3" << std::endl;
+                        //std::cout << "if 3" << std::endl;
                         return false;
                     }
                     if(LTVar == std::accumulate(temp.begin(), temp.end(), 0)){
-                        std::cout << "if 4" << std::endl;
+                        //std::cout << "if 4" << std::endl;
                         return false;
                     }
 
@@ -132,20 +132,20 @@ class BigNumber{
         bool operator>(uint64_t GTVar){
             bool YN = false;
             int i = 0;
-            std::cout << GTVar;
+            //std::cout << GTVar;
 
             i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
                 uint64_t temp = *uint64_tit++;
                 if(buffer.size() == 4){
                     if(GTVar > temp + buffer[1] + buffer[2] + buffer[3]){
-                        std::cout << "if 1" << std::endl;
+                        //std::cout << "if 1" << std::endl;
                         return true;
                     }
                 }
                 if(uint64_tit != buffer.end()){
                     if(GTVar - temp > *uint64_tit){
-                        std::cout << "if 2" << std::endl;
+                        //std::cout << "if 2" << std::endl;
                         return true;
 
                     }
@@ -155,37 +155,37 @@ class BigNumber{
                         temp.push_back(buffer[i]);
                     }
                     if(GTVar > std::accumulate(temp.begin(), temp.end(), 0)){
-                        std::cout << "if 3" << std::endl;
+                        //std::cout << "if 3" << std::endl;
                         return false;
                     }
                     if(GTVar == std::accumulate(temp.begin(), temp.end(), 0)){
-                        std::cout << "if 4" << std::endl;
+                        //std::cout << "if 4" << std::endl;
                         return false;
                     }
 
                 }
             }
-            std::cout << "nothing" << std::endl;
+            //std::cout << "nothing" << std::endl;
             return YN;
         }
 
         bool operator>=(uint64_t GTEVar){
             bool YN = false;
             int i = 0;
-            std::cout << GTEVar;
+            //std::cout << GTEVar;
 
             i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
                 uint64_t temp = *uint64_tit++;
                 if(buffer.size() == 4){
                     if(GTEVar <= temp + buffer[1] + buffer[2] + buffer[3]){
-                        std::cout << "if 1" << std::endl;
+                        //std::cout << "if 1" << std::endl;
                         return true;
                     }
                 }
                 if(uint64_tit != buffer.end()){
                     if(GTEVar - temp <= *uint64_tit){
-                        std::cout << "if 2" << std::endl;
+                        //std::cout << "if 2" << std::endl;
                         return true;
 
                     }
@@ -195,13 +195,13 @@ class BigNumber{
                         temp.push_back(buffer[i]);
                     }
                     if(GTEVar > std::accumulate(temp.begin(), temp.end(), 0)){
-                        std::cout << "if 3" << std::endl;
+                        //std::cout << "if 3" << std::endl;
                         return false;
                     }
 
                 }
             }
-            std::cout << "nothing" << std::endl;
+            //std::cout << "nothing" << std::endl;
             return YN;
         }
 
@@ -216,13 +216,13 @@ class BigNumber{
                 uint64_t temp = *uint64_tit++;
                 if(buffer.size() == 4){
                     if(LTEVar >= temp + buffer[1] + buffer[2] + buffer[3]){
-                        std::cout << "if 1" << std::endl;
+                        //std::cout << "if 1" << std::endl;
                         return true;
                     }
                 }
                 if(uint64_tit != buffer.end()){
                     if(LTEVar - temp <= *uint64_tit){
-                        std::cout << "if 2" << std::endl;
+                        //std::cout << "if 2" << std::endl;
                         return true;
 
                     }
@@ -232,13 +232,13 @@ class BigNumber{
                         temp.push_back(buffer[i]);
                     }
                     if(LTEVar < std::accumulate(temp.begin(), temp.end(), 0)){
-                        std::cout << "if 3" << std::endl;
+                        //std::cout << "if 3" << std::endl;
                         return false;
                     }
 
                 }
             }
-            std::cout << "nothing" << std::endl;
+            //std::cout << "nothing" << std::endl;
             return YN;
         }
 
@@ -253,7 +253,10 @@ class BigNumber{
             }
         }
 
-
+        void operator-(uint64_t a){ //Basic and can break easily
+            buffer.back() - a;
+            std::cout << buffer.back();
+        }
         void operator+(uint64_t a){
             buffer.push_back(a);
         }
@@ -261,8 +264,9 @@ class BigNumber{
 
 int main(){
 
-std::vector<uint64_t> placeholder = { 999999999999999999999999999999999999999999}; // Tested multiple ways, seems to work(Only with 2*, will be fixed later)
+std::vector<uint64_t> placeholder = { 1, 1, 1}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
 BigNumber a(placeholder);
-std::cout << std::endl << (a > 3);
+a - 5;
+std::cout << std::endl << (a < 3);
 return 0;
 }
