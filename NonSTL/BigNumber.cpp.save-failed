@@ -28,9 +28,11 @@ class BigNumber{
             bool YN = false;
             int i = 0;
             for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
-                if(EqualsVar - *uint64_tit++ == *uint64_tit){
-                    YN = true;
-                }
+
+                        if(EqualsVar - *uint64_tit++ == *uint64_tit){
+                            YN = true;
+                        }
+
             }
             return YN;
         }
@@ -47,30 +49,22 @@ class BigNumber{
         }
 
         bool operator<(uint64_t LTVar){
-            int i = 0;
-            for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
-                if(LTVar - *uint64_tit++ > *uint64_tit){
-                    return true;
-                }
-            }
-            return false;
+            std::cout << LTVar << std::endl;
+            return true;
         }
 
         bool operator>(uint64_t GTVar){
-            int i = 0;
-            for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++, i++){
-                if(GTVar - *uint64_tit++ < *uint64_tit){
-                    return true;
-                }
-            }
-            return false;
+            std::cout << GTVar << std::endl;
+            return true;
         }
 };
 
 int main(){
 
-std::vector<uint64_t> placeholder = { 4, 4}; // Tested multiple ways, seems to work(Only with 2*, will be fixed later)
+std::vector<uint64_t> placeholder = { 4, 4, 4}; // Tested multiple ways, seems to work(Only with 2*, will be fixed later)
 BigNumber a(placeholder);
-
+if(a == 9){
+    std::cout << 'b';
+}
 return 0;
 }
