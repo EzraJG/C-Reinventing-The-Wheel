@@ -130,6 +130,6 @@ int main(){
 
 std::vector<uint64_t> placeholder = { 10, 10, 10, 10}; // Tested multiple ways, seems to work(Only with 2*, will be fixed later)
 BigNumber a(placeholder);
-if(a == 40) std::cout << "It works!" << std::endl;
+if(a == 50) std::cout << "It works!" << std::endl;
 return 0;
 }
