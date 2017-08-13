@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <exception>
 #include <numeric>
+#include <limits>
 #include "BigNumber.h"
 
 
@@ -246,7 +247,11 @@ std::ostream& operator<<(std::ostream& os, BigNumber& big){
 }
 
 std::istream& operator>>(std::istream& in, BigNumber& big){
-    in >> big.buffer[0]; // <------ Make this better!!
+    uint64_t a = 0;
+    for(big.uint64_tit = big.buffer.begin(); big.uint64_tit != big.buffer.end(); big.uint64_tit++){
+        a += *big.uint64_tit;
+    }
+    in >> a;
     return in;
 }
 
@@ -330,12 +335,47 @@ BigNumber BigNumber::operator-=(auto a){
     return *this;
 }
 
+void BigNumber::optimize(){
+    int buff = 0;
+    std::vector<uint64_t> leftover;
+    uint64_t localmax = std::numeric_limits<uint64_t>::max();
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end();){
+        if(*uint64_tit >= localmax){
+            *uint64_tit - localmax;
+            buff++;
+            leftover.push_back(localmax);
+            std::cout << buff << " : " << localmax << std::endl;
+        }else{
+            *uint64_tit++;
+            leftover.push_back(*uint64_tit);
+            std::cout << buff << " : " << *uint64_tit << std::endl;
+        }
+    }
+    buffer.clear();
+    std::cout << std::endl << "buff: " << buff << std::endl;
+    *this = BigNumber(leftover);
+}
 
 int main(){
 
 std::vector<uint64_t> placeholder = {10, 2}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
 BigNumber a(placeholder);
-a /= 2;
-std::cout << a;
+while(true){
+    std::string *temp = new std::string;
+    std::cout << std::endl << "Begin loop: " << sizeof(a) << std::endl;
+    std::cin >> *temp;
+    if(*temp == "optim"){
+        std::cout << std::endl << "In a: " << a;
+        std::cout << std::endl << "A size(before optim): " << sizeof(a) << std::endl;
+        a.optimize();
+        std::cout << std::endl << "A size(after optim): " << sizeof(a) << std::endl;
+    }else if(*temp == "input"){
+        std::cout << std::endl;
+        std::cin >> a;
+    }
+    std::cout << std::endl << "After loop: " << sizeof(a) << std::endl;
+    delete temp;
+
+}
 return 0;
 }

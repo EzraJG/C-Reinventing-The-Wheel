@@ -48,6 +48,9 @@ class BigNumber
         friend std::ostream& operator<<(std::ostream& os, const BigNumber& big);
         friend std::istream& operator>>(std::istream in, const BigNumber& big);
 
+        // Misc
+        void optimize();
+
 };
 
 #endif // BIGNUMBER_H
