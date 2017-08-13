@@ -2,7 +2,6 @@
 #include <vector> // Will add custom vector class later
 #include <algorithm>
 #include <exception>
-#include <ostream>
 #include <numeric>
 #include "BigNumber.h"
 
@@ -246,11 +245,37 @@ std::ostream& operator<<(std::ostream& os, BigNumber& big){
     return os;
 }
 
+std::istream& operator>>(std::istream& in, BigNumber& big){
+    in >> big.buffer[0]; // <------ Make this better!!
+    return in;
+}
+
+BigNumber& BigNumber::operator++(){
+    this->buffer.push_back(1);
+    return *this;
+}
+
+BigNumber& BigNumber::operator--(){
+    this->buffer.push_back(-1);
+    return *this;
+}
+
+
+BigNumber BigNumber::operator--(int){
+    this->buffer.push_back(-1);
+    return *this;
+}
+
+BigNumber BigNumber::operator++(int){
+    this->buffer.push_back(1);
+    return *this;
+}
+
 
 int main(){
 
-std::vector<uint64_t> placeholder = { 9223372036854775807, 1, 1}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
+std::vector<uint64_t> placeholder = {10, 15}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
 BigNumber a(placeholder);
-std::cout << a;
+
 return 0;
 }
