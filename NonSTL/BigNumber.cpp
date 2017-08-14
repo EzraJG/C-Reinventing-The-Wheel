@@ -272,10 +272,70 @@ BigNumber BigNumber::operator++(int){
 }
 
 
+
+double BigNumber::operator*(auto a){
+    uint64_t b = 0;
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
+        b += *uint64_tit;
+    }
+    return b * a;
+}
+
+
+double BigNumber::operator/(auto a){
+    uint64_t b = 0;
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
+        b += *uint64_tit;
+    }
+    return b / a;
+}
+
+BigNumber BigNumber::operator*=(auto a){
+    uint64_t b = 0;
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
+        b += *uint64_tit;
+    }
+    this->buffer.clear();
+    this->buffer.push_back(a*b);
+    return *this;
+}
+
+BigNumber BigNumber::operator/=(auto a){
+    uint64_t b = 0;
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
+        b += *uint64_tit;
+    }
+    this->buffer.clear();
+    this->buffer.push_back(b/a);
+    return *this;
+}
+
+BigNumber BigNumber::operator+=(auto a){
+    uint64_t b = 0;
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
+        b += *uint64_tit;
+    }
+    this->buffer.clear();
+    this->buffer.push_back(a+b);
+    return *this;
+}
+
+BigNumber BigNumber::operator-=(auto a){
+    uint64_t b = 0;
+    for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
+        b += *uint64_tit;
+    }
+    this->buffer.clear();
+    this->buffer.push_back(b - a);
+    return *this;
+}
+
+
 int main(){
 
-std::vector<uint64_t> placeholder = {10, 15}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
+std::vector<uint64_t> placeholder = {10, 2}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
 BigNumber a(placeholder);
-
+a /= 2;
+std::cout << a;
 return 0;
 }

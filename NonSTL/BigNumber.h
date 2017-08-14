@@ -36,6 +36,14 @@ class BigNumber
         BigNumber& operator--();
         BigNumber operator++(int);
         BigNumber operator--(int);
+        double operator*(auto a);
+        double operator/(auto a);
+        BigNumber operator*=(auto a);
+        BigNumber operator/=(auto a);
+        BigNumber operator+=(auto a);
+        BigNumber operator-=(auto a);
+
+
         //"Getters"
         friend std::ostream& operator<<(std::ostream& os, const BigNumber& big);
         friend std::istream& operator>>(std::istream in, const BigNumber& big);
