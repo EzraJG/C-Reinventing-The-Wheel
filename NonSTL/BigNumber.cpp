@@ -278,7 +278,7 @@ BigNumber BigNumber::operator++(int){
 
 
 
-double BigNumber::operator*(auto a){
+uint64_t BigNumber::operator*(uint64_t a){
     uint64_t b = 0;
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
         b += *uint64_tit;
@@ -287,7 +287,7 @@ double BigNumber::operator*(auto a){
 }
 
 
-double BigNumber::operator/(auto a){
+uint64_t BigNumber::operator/(uint64_t a){
     uint64_t b = 0;
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
         b += *uint64_tit;
@@ -295,7 +295,7 @@ double BigNumber::operator/(auto a){
     return b / a;
 }
 
-BigNumber BigNumber::operator*=(auto a){
+BigNumber BigNumber::operator*=(uint64_t a){
     uint64_t b = 0;
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
         b += *uint64_tit;
@@ -305,7 +305,7 @@ BigNumber BigNumber::operator*=(auto a){
     return *this;
 }
 
-BigNumber BigNumber::operator/=(auto a){
+BigNumber BigNumber::operator/=(uint64_t a){
     uint64_t b = 0;
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
         b += *uint64_tit;
@@ -315,7 +315,7 @@ BigNumber BigNumber::operator/=(auto a){
     return *this;
 }
 
-BigNumber BigNumber::operator+=(auto a){
+BigNumber BigNumber::operator+=(uint64_t a){
     uint64_t b = 0;
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
         b += *uint64_tit;
@@ -325,7 +325,7 @@ BigNumber BigNumber::operator+=(auto a){
     return *this;
 }
 
-BigNumber BigNumber::operator-=(auto a){
+BigNumber BigNumber::operator-=(uint64_t a){
     uint64_t b = 0;
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end(); uint64_tit++){
         b += *uint64_tit;
@@ -340,11 +340,12 @@ void BigNumber::optimize(){
     std::vector<uint64_t> leftover;
     uint64_t localmax = std::numeric_limits<uint64_t>::max();
     for(uint64_tit = buffer.begin(); uint64_tit != buffer.end();){
-        if(*uint64_tit >= localmax){
+        if(*uint64_tit > localmax){
+            //std::cout << buff << " : " << *uint64_tit << std::endl;
             *uint64_tit - localmax;
             buff++;
             leftover.push_back(localmax);
-            std::cout << buff << " : " << localmax << std::endl;
+            //std::cout << buff << " : " << *uint64_tit << std::endl;
         }else{
             *uint64_tit++;
             leftover.push_back(*uint64_tit);
@@ -354,11 +355,12 @@ void BigNumber::optimize(){
     buffer.clear();
     std::cout << std::endl << "buff: " << buff << std::endl;
     *this = BigNumber(leftover);
+    std::cout << *this;
 }
 
 int main(){
 
-std::vector<uint64_t> placeholder = {10, 2}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
+std::vector<uint64_t> placeholder = {std::numeric_limits<uint64_t>::max(), 1}; // Now can hold N amount of numbers, any number above 64 bits needs to be separated for no overflow(May find a solution later)
 BigNumber a(placeholder);
 while(true){
     std::string *temp = new std::string;
@@ -372,6 +374,8 @@ while(true){
     }else if(*temp == "input"){
         std::cout << std::endl;
         std::cin >> a;
+    }else{
+        a.buffer.clear();
     }
     std::cout << std::endl << "After loop: " << sizeof(a) << std::endl;
     delete temp;

@@ -36,12 +36,12 @@ class BigNumber
         BigNumber& operator--();
         BigNumber operator++(int);
         BigNumber operator--(int);
-        double operator*(auto a);
-        double operator/(auto a);
-        BigNumber operator*=(auto a);
-        BigNumber operator/=(auto a);
-        BigNumber operator+=(auto a);
-        BigNumber operator-=(auto a);
+        uint64_t operator*(uint64_t a);
+        uint64_t operator/(uint64_t a);
+        BigNumber operator*=(uint64_t a);
+        BigNumber operator/=(uint64_t a);
+        BigNumber operator+=(uint64_t a);
+        BigNumber operator-=(uint64_t a);
 
 
         //"Getters"
